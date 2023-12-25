@@ -1,0 +1,21 @@
+name: 'Continuous Deployment' 
+on: 
+  workflow_dispatch: 
+    inputs:
+      environment:
+        description: 'Target environment for deployment'
+        required: true
+        default: 'dev'
+        type: choice
+        options:
+          - dev
+
+jobs:
+  deployment:
+    runs-on: 'ubuntu-latest'
+    environment: ${{ inputs.environment }} 
+    env:
+      SERVICE_PRINCIPAL_NAME: ${{ vars.SERVICE_PRINCIPAL_NAME }}
+    steps:
+    - name: 'Print Service Principal Name'
+      run: echo "$SERVICE_PRINCIPAL_NAME" 
